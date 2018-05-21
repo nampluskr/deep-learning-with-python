@@ -1,6 +1,11 @@
 # Deep learning with python
 Deep learning in numpy, pytorch, tensorflow, keras and sklearn.
 
+## 1. MNIST Neural Net - Basic
+
+## 2. MNIST Neural Net - Advanced
+
+## 3. MNIST Convolutional Neural Net
 
 
 # References
