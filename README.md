@@ -8,7 +8,7 @@ Deep learning in numpy, pytorch, tensorflow, keras and sklearn.
 - Initialization: Random normal distribution (or Xavier)
 - Optimizer: Gradient descent method
 - Learning rate: 0.01
-- # of epochs: 10 (batch_size: 64)
+- Epochs: 10 (batch_size: 64)
 
 
 ## 2. MNIST Neural Net - Advanced
@@ -17,7 +17,7 @@ Deep learning in numpy, pytorch, tensorflow, keras and sklearn.
 - Initialization: (Xavier or He)
 - Optimizer: Adam
 - Learning rate: 0.001
-- # of epochs: 10 (batch_size: 64)
+- Epochs: 10 (batch_size: 64)
 
 
 ## 3. MNIST Convolutional Neural Net
@@ -26,7 +26,7 @@ Deep learning in numpy, pytorch, tensorflow, keras and sklearn.
 - FC(64 x 7 x 7, 256) - Relu - Dropout(0.5) - FC(256, 10)
 - Optimizer: Adam
 - Learning rate: 0.001
-- # of epochs: 10 (batch_size: 64)
+- Epochs: 10 (batch_size: 64)
 
 
 # References
