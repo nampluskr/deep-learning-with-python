@@ -28,8 +28,7 @@ Deep learning codes to the same model in numpy, pytorch, tensorflow, keras and s
 
 
 ## [0. Linear Regression](https://github.com/nampluskr/deep-learning-with-python/tree/master/00_linear_regression)
-- Model: Linear(1,1) - Mean squared error
-    - $y = 2x + 10$
+- Model: Linear(y = w x + b) - Mean squared error
 - Learning rate: 0.01
 - Epochs: 1000
 
