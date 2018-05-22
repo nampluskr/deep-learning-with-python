@@ -1,4 +1,4 @@
-# Classification of MNIST using convolutional neural nets
+# Classification of MNIST using neural nets with some techniques
 
 - Model: Linear(784,200) - ReLU - Linear(200,200) - ReLU - Linear(200,10) - Softmax - Cross entropy error
   - 2 Hidden layer (nodes = 200, 200)
