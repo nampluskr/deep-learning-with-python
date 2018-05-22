@@ -43,7 +43,7 @@ Deep learning in numpy, pytorch, tensorflow, keras and sklearn.
 # Tips
 
 ## How to load MNIST datasets
-- numpy
+- numpy: [source](https://github.com/WegraLee/deep-learning-from-scratch/tree/master/dataset)
 ```
 import pickle
 import numpy as np
