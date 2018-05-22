@@ -44,7 +44,7 @@ Deep learning in numpy, pytorch, tensorflow, keras and sklearn.
 
 ## How to load MNIST datasets
 - numpy: [source](https://github.com/WegraLee/deep-learning-from-scratch/tree/master/dataset)
-```
+```python
 import pickle
 import numpy as np
 
@@ -62,7 +62,7 @@ y_test  = nn.onehot_encode(mnist['test_label'], 10)
 ```
 
 - pytorch
-```
+```python
 from torch.utils.data import DataLoader
 from torchvision import datasets, transforms
 
@@ -73,7 +73,7 @@ test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
 ```
 
 - keras
-```
+```python
 import keras
 from keras.datasets import mnist
 
@@ -85,7 +85,7 @@ y_test = keras.utils.to_categorical(y_test, 10)
 ```
 
 - tensorflow
-```
+```python
 from tensorflow.examples.tutorials.mnist import input_data
 mnist = input_data.read_data_sets("../data/", one_hot=True)
 
@@ -100,7 +100,7 @@ for epoch in range(n_epoch):
 ```
 
 - sklearn
-```
+```python
 from sklearn.datasets import fetch_mldata
 from sklearn.model_selection import train_test_split
 
@@ -111,14 +111,14 @@ x_train, x_test, y_train, y_test = train_test_split(
 
 ## How to prevent `CUDA_ERROR_OUT_OF_MEMORY`
 - tesnsorflow:
-```
+```python
 config = tf.ConfigProto()
 config.gpu_options.allow_growth = True
 with tf.Session(config=config) as sess:
 ```
 
 - Keras:
-```
+```python
 config = keras.backend.tf.ConfigProto()
 config.gpu_options.allow_growth = True
 session = keras.backend.tf.Session(config=config)
