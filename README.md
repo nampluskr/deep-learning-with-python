@@ -17,7 +17,7 @@ Deep learning in numpy, pytorch, tensorflow, keras and sklearn.
 </tr>
 <tr>
     <td><b> <a href="https://keras.io/">keras</a> </b></td>
-    <td>  a high-level neural networks API, written in Python and capable of running on top of TensorFlow or Theano </td>
+    <td>  a high-level neural networks API and capable of running on top of TensorFlow or Theano </td>
 </tr>
 <tr>
     <td><b> <a href="http://scikit-learn.org/stable/#">sklearn</a> </b></td>
