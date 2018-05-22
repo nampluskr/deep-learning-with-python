@@ -262,10 +262,10 @@ with tf.Session(config=config) as sess:
     sess.run(tf.global_variables_initializer())
 
     for epoch in range(n_epoch):
-            sess.run([update_w1, update_b1, update_w2, update_b2],
-                    feed_dict={x:x_train[batch], y:y_train[batch]})
-            loss_batch, acc_batch  = sess.run([loss, acc],
-                    feed_dict={x:x_train[batch], y:y_train[batch]})
+        sess.run([update_w1, update_b1, update_w2, update_b2],
+                feed_dict={x:x_train[batch], y:y_train[batch]})
+        loss_batch, acc_batch  = sess.run([loss, acc],
+                feed_dict={x:x_train[batch], y:y_train[batch]})
 ```
 
 ### tensorflow (3)
@@ -282,7 +282,7 @@ with tf.Session(config=config) as sess:
     sess.run(tf.global_variables_initializer())
 
     for epoch in range(n_epoch):
-            sess.run(optimizer, feed_dict={x:x_train[batch], y:y_train[batch]})
-            loss_batch, acc_batch  = sess.run([loss, acc],
-                    feed_dict={x:x_train[batch], y:y_train[batch]})
+        sess.run(optimizer, feed_dict={x:x_train[batch], y:y_train[batch]})
+        loss_batch, acc_batch  = sess.run([loss, acc],
+                feed_dict={x:x_train[batch], y:y_train[batch]})
 ```
