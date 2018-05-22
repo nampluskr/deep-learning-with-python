@@ -1,6 +1,6 @@
 # Deep learning with python
 
-Deep learning codes to the same model in numpy, pytorch, tensorflow, keras and sklearn.
+Python codes to the same deep learning model in numpy, pytorch, tensorflow, keras and sklearn.
 
 ## Open source deep learning libraries in python
 <table>
