@@ -137,6 +137,7 @@ b2 = torch.zeros(10, requires_grad=True)
 
 # Train the model:
 for i in range(n_batch):
+    # Forward propagation:
     lin1 = torch.mm(data, w1) + b1
     sig1 = F.sigmoid(lin1)
     lin2 = torch.mm(sig1, w2) + b2
@@ -146,7 +147,7 @@ for i in range(n_batch):
     # Backward progapation:
     loss.backward()
 
-    # Update weights and bias:
+    # Update model parameters:
     for param in (w1, b1, w2, b2):
         param.data -= lr*param.grad.data
         param.grad.zero_()
@@ -157,6 +158,7 @@ for i in range(n_batch):
 ```python
 use_gpu = 1
 device = torch.device("cuda") if use_gpu else torch.device("cpu")
+
 data, target = data.to(device), target.to(device)
 
 # Setup a model:
@@ -166,9 +168,15 @@ criterion = torch.nn.CrossEntropyLoss()
 optimizer = torch.optim.SGD(model.parameters(), lr=lr)
 
 # Train the model:
+for epoch in range(n_epoch):
+    # Forwad propagation:
     output = model(data)
     loss = criterion(output, target)
     optimizer.zero_grad()
+    
+    # Backward propagation:
     loss.backward()
+    
+    # Update model parameters:
     optimizer.step()
 ```
