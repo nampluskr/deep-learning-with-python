@@ -61,7 +61,7 @@ x_test  = mnist['test_img']/255.
 y_test  = nn.onehot_encode(mnist['test_label'], 10)
 ```
 
-- torch
+- pytorch
 ```
 from torch.utils.data import DataLoader
 from torchvision import datasets, transforms
@@ -82,6 +82,21 @@ x_train = x_train.reshape(-1, 784)/255.
 y_train = keras.utils.to_categorical(y_train, 10)
 x_test = x_test.reshape(-1, 784)/255.
 y_test = keras.utils.to_categorical(y_test, 10)
+```
+
+- tensorflow
+```
+from tensorflow.examples.tutorials.mnist import input_data
+mnist = input_data.read_data_sets("../data/", one_hot=True)
+
+x_train, y_train = mnist.train.images, mnist.train.labels
+x_val,   y_val   = mnist.validation.images, mnist.validation.lables
+x_test,  y_test  = mnist.test.images, mnist.test.labels
+
+for epoch in range(n_epoch):
+    for i in range(n_batch):
+        x_batch, y_batch = mnist.train.next_batch(batch_size)
+        pass
 ```
 
 - sklearn
