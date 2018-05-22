@@ -6,7 +6,8 @@ data, target = x_train, y_train
 ```
 
 ## Numpy
-### numpy (1): [munual graident calculation using `numpy.ndarray`]
+### numpy (1)
+- [munual graident calculation using `numpy.ndarray`]
 ```python
 # Setup a model:
 w1 = np.random.randn(784, 200)
@@ -40,7 +41,8 @@ for epoch in range(n_epoch):
     b1 -= lr*grad_b1
 ```
 
-### numpy (2): [manual gradient calculation (class version)]
+### numpy (2)
+- [manual gradient calculation (class version)]
 ```python
 class NetNumpy:
     def __init__(self):
