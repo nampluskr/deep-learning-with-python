@@ -58,21 +58,21 @@ score = Evaluator(model, criterion)
 
 # Train the model:
 for epoch in range(n_epoch):
-	# Train the model:
-	model.train()
-	for i, (data, target) in enumerate(train_loader):
-		data, target = data.to(device), target.to(device)
-		loss = criterion(model(data), target)
-		optimizer.zero_grad()
-		loss.backward()
-		optimizer.step()
+    # Train the model:
+    model.train()
+    for i, (data, target) in enumerate(train_loader):
+        data, target = data.to(device), target.to(device)
+        loss = criterion(model(data), target)
+        optimizer.zero_grad()
+        loss.backward()
+        optimizer.step()
 
-	# Evaluate the model:
-	model.eval()
-	with torch.no_grad():
-		for data, target in test_loader:
-			data, target = data.to(device), target.to(device)
-			loss_batch, acc_batch = score(data, target)
+    # Evaluate the model:
+    model.eval()
+    with torch.no_grad():
+        for data, target in test_loader:
+            data, target = data.to(device), target.to(device)
+            loss_batch, acc_batch = score(data, target)
 ```
 
 ### tensorflow
@@ -107,10 +107,10 @@ acc = tf.reduce_mean(tf.cast(correct, tf.float32))
 # Train the model
 with tf.Session() as sess:
     sess.run(tf.global_variables_initializer())
-	for epoch in range(n_epoch):
-		data = {x:x_train[batch], y:y_train[batch], is_training:True}
-		sess.run(optimizer, feed_dict=data)
-		loss_batch, acc_batch  = sess.run([loss, acc], feed_dict=data)
+    for epoch in range(n_epoch):
+        data = {x:x_train[batch], y:y_train[batch], is_training:True}
+        sess.run(optimizer, feed_dict=data)
+        loss_batch, acc_batch  = sess.run([loss, acc], feed_dict=data)
 ```
 
 ### keras

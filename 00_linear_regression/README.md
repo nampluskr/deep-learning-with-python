@@ -66,10 +66,10 @@ for epoch in range(n_epoch):
    
     optimizer.zero_grad()
 
-	# Backward propagation#
+    # Backward propagation#
     loss.backward()
-	
-	# update model parameters:
+    
+    # update model parameters:
     optimizer.step()
 ```
 
