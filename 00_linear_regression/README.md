@@ -4,12 +4,6 @@
 - Activation: sigmoid
 - Optimizer: Gradient descent method
 
-Given MNIST datasets,
-```python
-data, target = x_train, y_train
-```
-
-## Numpy
 ### numpy
 - Manual graident calculation using `numpy.ndarray`
 ```python
