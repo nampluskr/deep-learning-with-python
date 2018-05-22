@@ -40,23 +40,23 @@ Deep learning in numpy, pytorch, tensorflow, keras and sklearn.
 - Epochs: 10 (batch_size: 64)
 
 
-# Tips:
+# Tips
 
-## TO prevent 'CUDA_ERROR_OUT_OF_MEMORY'
+## TO prevent `CUDA_ERROR_OUT_OF_MEMORY`
 
 - tesnsorflow:
-'''
+```
 config = tf.ConfigProto()
 config.gpu_options.allow_growth = True
 with tf.Session(config=config) as sess:
-'''
+```
 
 - Keras:
-'''
+```
 config = keras.backend.tf.ConfigProto()
 config.gpu_options.allow_growth = True
 session = keras.backend.tf.Session(config=config)
-'''
+```
 
 # References
 ## numpy
