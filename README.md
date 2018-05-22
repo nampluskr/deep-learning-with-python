@@ -1,6 +1,31 @@
 # Deep learning with python
 Deep learning in numpy, pytorch, tensorflow, keras and sklearn.
 
+## Deep learning libraries
+<table>
+<tr>
+    <td><b> [numpy](http://www.numpy.org/) </b></td>
+    <td> The fundamental package for scientific computing with Python</td>
+</tr>
+<tr>
+    <td><b> [pytorch](https://pytorch.org/) </b></td>
+    <td> Tensors and Dynamic neural networks in Python with strong GPU acceleration  </td>
+</tr>
+<tr>
+    <td><b> [tensorflow](https://www.tensorflow.org/) </b></td>
+    <td> an open source software library for high performance numerical computation </td>
+</tr>
+<tr>
+    <td><b> [keras](https://keras.io/)  </b></td>
+    <td>  a high-level neural networks API, written in Python and capable of running on top of TensorFlow, CNTK, or Theano </td>
+</tr>
+<tr>
+    <td><b> [sklearn](http://scikit-learn.org/stable/#) </b></td>
+    <td> a </td>
+</tr>
+</table>
+
+
 ## [0. Linear Regression](https://github.com/nampluskr/deep-learning-with-python/tree/master/00_linear_regression)
 - Model: Linear(784,1) - MSE
 - Criterion: Mean squared error
