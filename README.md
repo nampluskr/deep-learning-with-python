@@ -4,24 +4,24 @@ Deep learning in numpy, pytorch, tensorflow, keras and sklearn.
 ## Deep learning libraries
 <table>
 <tr>
-    <td><b> [numpy](http://www.numpy.org/) </b></td>
-    <td> The fundamental package for scientific computing with Python</td>
+    <td><b> <a href="http://www.numpy.org/">numpy</a> </b></td>
+    <td> The fundamental package for scientific computing with Python </td>
 </tr>
 <tr>
-    <td><b> [pytorch](https://pytorch.org/) </b></td>
+    <td><b> <a href="https://pytorch.org/">pytorch</a> </b></td>
     <td> Tensors and Dynamic neural networks in Python with strong GPU acceleration  </td>
 </tr>
 <tr>
-    <td><b> [tensorflow](https://www.tensorflow.org/) </b></td>
+    <td><b> <a href="https://www.tensorflow.org/">tesnsorflow</a> </b></td>
     <td> an open source software library for high performance numerical computation </td>
 </tr>
 <tr>
-    <td><b> [keras](https://keras.io/)  </b></td>
+    <td><b> <a href="https://keras.io/">keras</a> </b></td>
     <td>  a high-level neural networks API, written in Python and capable of running on top of TensorFlow, CNTK, or Theano </td>
 </tr>
 <tr>
-    <td><b> [sklearn](http://scikit-learn.org/stable/#) </b></td>
-    <td> a </td>
+    <td><b> <a href="http://scikit-learn.org/stable/#">sklearn</a> </b></td>
+    <td> Machine Learning in Python, simple and efficient tools for data mining and data analysis </td>
 </tr>
 </table>
 
