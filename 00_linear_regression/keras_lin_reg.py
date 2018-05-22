@@ -1,6 +1,7 @@
 import numpy as np
 import keras
 
+
 # To prevent CUDA_ERROR_OUT_OF_MEMORY:
 #config = keras.backend.tf.ConfigProto()
 #config.gpu_options.allow_growth = True

@@ -13,7 +13,6 @@ y_train = x_train*2 + 10 + noise
 
 x = tf.placeholder(tf.float32, [None,1])
 y = tf.placeholder(tf.float32, [None,1])
-#data = {x:x_train, y:y_train}
 
 # Setup a model
 np.random.seed(0)
