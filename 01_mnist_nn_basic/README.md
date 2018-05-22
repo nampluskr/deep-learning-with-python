@@ -7,7 +7,7 @@ data, target = x_train, y_train
 
 ## Numpy
 ### numpy (1)
-- [munual graident calculation using `numpy.ndarray`]
+- Manual graident calculation using `numpy.ndarray`
 ```python
 # Setup a model:
 w1 = np.random.randn(784, 200)
@@ -42,7 +42,7 @@ for epoch in range(n_epoch):
 ```
 
 ### numpy (2)
-- [manual gradient calculation (class version)]
+- Manual gradient calculation (class version)
 ```python
 class NetNumpy:
     def __init__(self):
@@ -85,3 +85,90 @@ for epoch in range(n_epoch):
     model.upadte()
 ```
 
+## Pytorch
+### pytorch (1)
+- Manual gradient calculation using `torch.Tensor`
+```python
+# Setup a model:
+w1 = np.random.randn(784, 200)
+b1 = np.zeros(200)
+w2 = np.random.randn(200, 10)
+b2 = np.zeros(10)
+
+w1 = torch.from_numpy(w1).float()
+b1 = torch.from_numpy(b1).float()
+w2 = torch.from_numpy(w2).float()
+b2 = torch.from_numpy(b2).float()
+
+# Train the model:
+for epoch in range(n_epoch):
+    # Forward propagation:
+    lin1 = torch.mm(data, w1) + b1
+    sig1 = F.sigmoid(lin1)
+    lin2 = torch.mm(sig1, w2) + b2
+    output  = lin2
+
+    # Backward progapation:
+    grad_output = (output - onehot(target))/target.size(0)
+    grad_lin2 = grad_output
+    grad_w2 = torch.mm(sig1.t(), grad_lin2)
+    grad_b2 = torch.sum(grad_lin2, 0)
+
+    grad_sig1 = torch.mm(grad_lin2, w2.t())
+    grad_lin1 = sig1*(1 - sig1)*grad_sig1
+    grad_w1 = torch.mm(data.t(), grad_lin1)
+    grad_b1 = torch.sum(grad_lin1, 0)
+
+    # Update model parameters:
+    w2 -= lr*grad_w2
+    b2 -= lr*grad_b2
+    w1 -= lr*grad_w1
+    b1 -= lr*grad_b1
+```
+
+## pytorch (2)
+- Automatic gradient: `torch.Tensor` with `requires_grad=True`
+```python
+# Setup a model:
+w1 = torch.randn(784,200, requires_grad=True)
+b1 = torch.zeros(200, requires_grad=True)
+w2 = torch.randn(200,10, requires_grad=True)
+b2 = torch.zeros(10, requires_grad=True)
+
+# Train the model:
+for i in range(n_batch):
+    lin1 = torch.mm(data, w1) + b1
+    sig1 = F.sigmoid(lin1)
+    lin2 = torch.mm(sig1, w2) + b2
+    output  = lin2
+    loss = F.cross_entropy(output, target)
+
+    # Backward progapation:
+    loss.backward()
+
+    # Update weights and bias:
+    for param in (w1, b1, w2, b2):
+        param.data -= lr*param.grad.data
+        param.grad.zero_()
+```
+
+## pytorch (3)
+- Optimizer and GPU operation
+```python
+use_gpu = 1
+device = torch.device("cuda") if use_gpu else torch.device("cpu")
+data, target = data.to(device), target.to(device)
+
+# Setup a model:
+model = torch.nn.Sequential(torch.nn.Linear(784,200), torch.nn.Sigmoid(),
+                            torch.nn.Linear(200,10)).to(device)
+criterion = torch.nn.CrossEntropyLoss()
+optimizer = torch.optim.SGD(model.parameters(), lr=lr)
+
+# Train the model:
+    output = model(data)
+    loss = criterion(output, target)
+    optimizer.zero_grad()
+    loss.backward()
+    optimizer.step()
+```
