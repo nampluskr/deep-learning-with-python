@@ -17,7 +17,7 @@ Deep learning in numpy, pytorch, tensorflow, keras and sklearn.
 </tr>
 <tr>
     <td><b> <a href="https://keras.io/">keras</a> </b></td>
-    <td>  a high-level neural networks API, written in Python and capable of running on top of TensorFlow, CNTK, or Theano </td>
+    <td>  a high-level neural networks API, written in Python and capable of running on top of TensorFlow or Theano </td>
 </tr>
 <tr>
     <td><b> <a href="http://scikit-learn.org/stable/#">sklearn</a> </b></td>
@@ -27,7 +27,7 @@ Deep learning in numpy, pytorch, tensorflow, keras and sklearn.
 
 
 ## [0. Linear Regression](https://github.com/nampluskr/deep-learning-with-python/tree/master/00_linear_regression)
-- Model: Linear(784,1) - Mean squared error
+- Model: Linear(1,1) - Mean squared error
 - Learning rate: 0.01
 - Epochs: 1000
 
