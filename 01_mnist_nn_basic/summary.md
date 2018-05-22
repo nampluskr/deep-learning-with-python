@@ -1,6 +1,12 @@
-## Coding outlines
+# Classification of MNIST datasets
 
-- numpy
+Given MNIST datasets,
+```python
+data, target = x_train, y_train
+```
+
+## Numpy
+### numpy: (1) [munual graident calculation using `numpy.ndarray`]
 ```python
 # Setup a model:
 w1 = np.random.randn(784, 200)
@@ -27,7 +33,7 @@ for epoch in range(n_epoch):
     grad_w1 = np.dot(data.T, grad_lin1)
     grad_b1 = np.sum(grad_lin1, axis=0)
 
-    # Update weights and bias:
+    # Update model parameters:
     w2 -= lr*grad_w2
     b2 -= lr*grad_b2
     w1 -= lr*grad_w1
