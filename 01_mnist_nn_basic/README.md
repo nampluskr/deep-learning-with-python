@@ -182,9 +182,8 @@ for epoch in range(n_epoch):
 ```
 
 ## Tensorflow
-### tensorflow (1)
-- Manual gradient calculation using tensors
-``` python
+- Setup a model & forward propagation
+```python
 x = tf.placeholder(tf.float32, [None, 784])
 y = tf.placeholder(tf.float32, [None, 10])
 
@@ -199,7 +198,13 @@ lin1 = tf.add(tf.matmul(x, w1), b1)
 sig1 = tf.nn.sigmoid(lin1)
 lin2 = tf.add(tf.matmul(sig1, w2), b2)
 output = lin2
+loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(
+           logits=output, labels=y))
+```
 
+### tensorflow (1)
+- Manual gradient calculation using tensors
+``` python
 # Backward propagation:
 grad_output = (output-y)/tf.cast(tf.shape(y)[0], tf.float32)
 grad_lin2 = grad_output
@@ -217,9 +222,7 @@ update_b1 = b1.assign(b1 - lr*grad_b1)
 update_w2 = w2.assign(w2 - lr*grad_w2)
 update_b2 = b2.assign(b2 - lr*grad_b2)
 
-# Evaluate loss and accuracy:
-loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(
-           logits=output, labels=y))
+# Evaluate the model:
 correct = tf.equal(tf.argmax(output,1), tf.argmax(y,1))
 acc = tf.reduce_mean(tf.cast(correct, tf.float32))
 
@@ -230,29 +233,13 @@ with tf.Session() as sess:
     for epoch in range(n_epoch):
         sess.run([update_w1, update_b1, update_w2, update_b2],
                  feed_dict={x:x_train[batch], y:y_train[batch]})
-        loss_, acc_ = sess.run([loss, acc], feed_dict={x:x_train[batch], y:y_train[batch]})
+        loss_, acc_ = sess.run([loss, acc],
+                 feed_dict={x:x_train[batch], y:y_train[batch]})
 ```
 
 ## tensorflow (2)
 - Automatic gradient calculation with `tf.gradients`
 ```python
-x = tf.placeholder(tf.float32, [None, 784])
-y = tf.placeholder(tf.float32, [None, 10])
-
-# Setup a model:
-w1 = tf.Variable(tf.random_normal([784, 200], stddev=0.1))
-b1 = tf.Variable(tf.zeros([200]))
-w2 = tf.Variable(tf.random_normal([200, 10], stddev=0.1))
-b2 = tf.Variable(tf.zeros([10]))
-
-# Forward propagation:
-lin1 = tf.add(tf.matmul(x, w1), b1)
-sig1 = tf.nn.sigmoid(lin1)
-lin2 = tf.add(tf.matmul(sig1, w2), b2)
-output = lin2
-loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(
-           logits=output, labels=y))
-
 # Backward propagation:
 grad_w1, grad_b1, grad_w2, grad_b2 = tf.gradients(loss, [w1, b1, w2, b2])
 
@@ -262,7 +249,7 @@ update_b1 = b1.assign(b1 - lr*grad_b1)
 update_w2 = w2.assign(w2 - lr*grad_w2)
 update_b2 = b2.assign(b2 - lr*grad_b2)
 
-# Evaluate loss and accuracy:
+# Evaluate the model:
 correct = tf.equal(tf.argmax(output,1), tf.argmax(y,1))
 acc = tf.reduce_mean(tf.cast(correct, tf.float32))
 
@@ -280,26 +267,9 @@ with tf.Session(config=config) as sess:
 ### tensorflow (3)
 - Optimizer
 ```python
-x = tf.placeholder(tf.float32, [None, 784])
-y = tf.placeholder(tf.float32, [None, 10])
-
-# Setup a model:
-w1 = tf.Variable(tf.random_normal([784, 200], stddev=0.1))
-b1 = tf.Variable(tf.zeros([200]))
-w2 = tf.Variable(tf.random_normal([200, 10], stddev=0.1))
-b2 = tf.Variable(tf.zeros([10]))
-
-# Forward propagation:
-lin1 = tf.add(tf.matmul(x, w1), b1)
-sig1 = tf.nn.sigmoid(lin1)
-lin2 = tf.add(tf.matmul(sig1, w2), b2)
-output = lin2
-
-loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(
-           logits=output, labels=y))
 optimizer = tf.train.GradientDescentOptimizer(lr).minimize(loss)
 
-# Evaluate loss and accuracy:
+# Evaluate the model:
 correct = tf.equal(tf.argmax(output,1), tf.argmax(y,1))
 acc = tf.reduce_mean(tf.cast(correct, tf.float32))
 
