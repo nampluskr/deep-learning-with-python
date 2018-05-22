@@ -1,4 +1,8 @@
-# Classification of MNIST datasets
+# Classification of MNIST using neural nets
+
+- Model: Linear(784,200) - Sigmoid - Linear(200,10) - Softmax - Cross entropy error
+- Activation: sigmoid
+- Optimizer: Gradient descent method
 
 Given MNIST datasets,
 ```python
