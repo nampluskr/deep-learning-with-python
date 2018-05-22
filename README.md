@@ -4,7 +4,7 @@ Deep learning in numpy, pytorch, tensorflow, keras and sklearn.
 ## 0. Linear Regression
 - Model: Linear(784,1) - MSE
 - Criterion: Mean squared error
-- Learning rate: 0.10
+- Learning rate: 0.01
 - Epochs: 1000
 
 ## 1. MNIST Neural Net - Basic
@@ -15,7 +15,7 @@ Deep learning in numpy, pytorch, tensorflow, keras and sklearn.
 - Initialization: Random normal distribution (or Xavier)
 - Optimizer: Gradient descent method
 - Learning rate: 0.01
-- Epochs: 10 (batch_size: 64)
+- Epochs: 10 (batch_size: 64, shuffle)
 
 
 ## 2. MNIST Neural Net - Advanced
@@ -26,7 +26,7 @@ Deep learning in numpy, pytorch, tensorflow, keras and sklearn.
 - Initialization: (Xavier or He)
 - Optimizer: Adam
 - Learning rate: 0.001
-- Epochs: 10 (batch_size: 64)
+- Epochs: 10 (batch_size: 64, shuffle)
 
 
 ## 3. MNIST Convolutional Neural Net
@@ -37,13 +37,64 @@ Deep learning in numpy, pytorch, tensorflow, keras and sklearn.
 - Criterion: Cross entropy error
 - Optimizer: Adam
 - Learning rate: 0.001
-- Epochs: 10 (batch_size: 64)
+- Epochs: 10 (batch_size: 64, shuffle)
 
 
 # Tips
 
-## TO prevent `CUDA_ERROR_OUT_OF_MEMORY`
+## How to load MNIST datasets
+- numpy
+```
+import pickle
+import numpy as np
 
+def onehot_encode(y, size):
+    y_onehot = np.zeros((y.shape[0], size), dtype=int)
+    for i, row in enumerate(y_onehot):
+        row[int(y[i])] = 1.0
+    return y_onehot
+    
+mnist = pickle.load(open('..\data\mnist.pkl', 'rb'))
+x_train = mnist['train_img']/255.
+y_train = nn.onehot_encode(mnist['train_label'], 10)
+x_test  = mnist['test_img']/255.
+y_test  = nn.onehot_encode(mnist['test_label'], 10)
+```
+
+- torch
+```
+from torch.utils.data import DataLoader
+from torchvision import datasets, transforms
+
+train_dataset = datasets.MNIST(root='../data/', train=True, transform=transforms.ToTensor())
+test_dataset = datasets.MNIST(root='../data/', train=False, transform=transforms.ToTensor())
+train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
+test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
+```
+
+- keras
+```
+import keras
+from keras.datasets import mnist
+
+(x_train, y_train), (x_test, y_test) = mnist.load_data()
+x_train = x_train.reshape(-1, 784)/255.
+y_train = keras.utils.to_categorical(y_train, 10)
+x_test = x_test.reshape(-1, 784)/255.
+y_test = keras.utils.to_categorical(y_test, 10)
+```
+
+- sklearn
+```
+from sklearn.datasets import fetch_mldata
+from sklearn.model_selection import train_test_split
+
+mnist = fetch_mldata('MNIST original')
+x_train, x_test, y_train, y_test = train_test_split(
+        mnist.data/255., mnist.target, test_size=10000)
+```
+
+## How to prevent `CUDA_ERROR_OUT_OF_MEMORY`
 - tesnsorflow:
 ```
 config = tf.ConfigProto()
