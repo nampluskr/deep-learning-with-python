@@ -1,8 +1,9 @@
-# Classification of MNIST using neural nets
+# Classification of MNIST using neural networks
 
-- Model: Linear(784,200) - Sigmoid - Linear(200,10) - Softmax - Cross entropy error
-- Activation: sigmoid
+- Model: **Linear(784,200) - Sigmoid - Linear(200,10) - Softmax - Cross entropy error**
 - Optimizer: Gradient descent method
+- Learning rate: 0.01
+- Epochs: 10 (batch_size: 64, shuffle)
 
 Given MNIST datasets,
 ```python
