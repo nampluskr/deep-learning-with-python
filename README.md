@@ -47,27 +47,27 @@ Python codes to the same deep learning model in numpy, pytorch, tensorflow, kera
 
 
 ## [0. Linear Regression (y = 2 x + 10)](https://github.com/nampluskr/deep-learning-with-python/tree/master/00_linear_regression)
-- Model: Linear(y = w x + b) - Mean squared error
+- Model: **Linear(y = w x + b) - Mean squared error**
 - Learning rate: 0.01
 - Epochs: 1000
 
-## [1. MNIST Neural Net - Basic](https://github.com/nampluskr/deep-learning-with-python/tree/master/01_mnist_nn_basic)
-- Model: Linear(784,200) - Sigmoid - Linear(200,10) - Softmax - Cross entropy error
+## [1. MNIST - Neural Networks - Basic](https://github.com/nampluskr/deep-learning-with-python/tree/master/01_mnist_nn_basic)
+- Model: **Linear(784,200) - Sigmoid - Linear(200,10) - Softmax - Cross entropy error**
 - Optimizer: Gradient descent method
 - Learning rate: 0.01
 - Epochs: 10 (batch_size: 64, shuffle)
 
 
-## [2. MNIST Neural Net - Advanced](https://github.com/nampluskr/deep-learning-with-python/tree/master/02_mnist_nn_advanced)
-- Model: Linear(784,200) - ReLU - Linear(200,200) - ReLU - Linear(200,10) - Softmax - Cross entropy error
+## [2. MNIST - Neural Networks - Advanced](https://github.com/nampluskr/deep-learning-with-python/tree/master/02_mnist_nn_advanced)
+- Model: **Linear(784,200) - ReLU - Linear(200,200) - ReLU - Linear(200,10) - Softmax - Cross entropy error**
 - Initialization: He
 - Optimizer: Adam method
 - Learning rate: 0.001
 - Epochs: 10 (batch_size: 64, shuffle)
 
 
-## [3. MNIST Convolutional Neural Net](https://github.com/nampluskr/deep-learning-with-python/tree/master/03_mnist_cnn)
-- Model: Layer1 - Layer2 - Layer3 - Softmax - Cross entropy error
+## [3. MNIST - Convolutional Neural Networks](https://github.com/nampluskr/deep-learning-with-python/tree/master/03_mnist_cnn)
+- Model: **Layer1 - Layer2 - Layer3 - Softmax - Cross entropy error**
   - Layer1: Convolution(N x 32 x 28 x 28) - Relu - Max Pooling(N x 32 x 14 x 14) - Dropout(0.5)
   - Layer2: Convolution(N x 64 x 14 x 14) - Relu - Max Pooling(N x 64 x 7 x 7) - Dropout(0.5)
   - Layer3: FC(64 x 7 x 7, 256) - Relu - Dropout(0.5) - FC(256, 10)

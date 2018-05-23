@@ -1,11 +1,8 @@
-# Classification of MNIST using neural nets with some techniques
+# Classification of MNIST using neural netwoks with various techniques
 
-- Model: Linear(784,200) - ReLU - Linear(200,200) - ReLU - Linear(200,10) - Softmax - Cross entropy error
-  - 2 Hidden layer (nodes = 200, 200)
-- Criterion: Cross entropy error
-- Activation: relu
-- Initialization: (Xavier or He)
-- Optimizer: Adam
+- Model: **Linear(784,200) - ReLU - Linear(200,200) - ReLU - Linear(200,10) - Softmax - Cross entropy error**
+- Initialization: He
+- Optimizer: Adam method
 - Learning rate: 0.001
 - Epochs: 10 (batch_size: 64, shuffle)
 
@@ -17,7 +14,7 @@ import numpy_nn_lib as nn
 np.random.seed(0)
 layers = [nn.Linear(784, 200, '1', activation='relu'), nn.Relu(),
           nn.Linear(200, 200, '2', activation='relu'), nn.Relu(),
-          nn.Linear(200, 10, '3')]
+          nn.Linear(200, 10,  '3')]
 criterion = nn.SoftmaxWithLoss()
 model = nn.MultiNetNumpy(layers, criterion)
 optimizer = nn.Adam(model, lr=lr)

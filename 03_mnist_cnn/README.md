@@ -1,11 +1,10 @@
-# Classification of MNIST using convolutional neural nets
+# Classification of MNIST using convolutional neural networks
 
-- Model: Layer1 - Layer2 - Layer3
+- Model: **Layer1 - Layer2 - Layer3 - Softmax - Cross entropy error**
   - Layer1: Convolution(N x 32 x 28 x 28) - Relu - Max Pooling(N x 32 x 14 x 14) - Dropout(0.5)
   - Layer2: Convolution(N x 64 x 14 x 14) - Relu - Max Pooling(N x 64 x 7 x 7) - Dropout(0.5)
   - Layer3: FC(64 x 7 x 7, 256) - Relu - Dropout(0.5) - FC(256, 10)
-- Criterion: Cross entropy error
-- Optimizer: Adam
+- Optimizer: Adam method
 - Learning rate: 0.001
 - Epochs: 10 (batch_size: 64, shuffle)
 
