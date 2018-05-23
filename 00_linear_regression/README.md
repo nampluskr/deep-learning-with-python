@@ -1,11 +1,14 @@
 # Linear regression
 
-- Model: Linear(1,1) - Mean squared error
-- Optimizer: Gradient descent method
+- Model: Linear(y = w x + b) - Mean squared error
+- Learning rate: 0.01
+- Epochs: 1000
 
 ### numpy
 - Manual graident calculation using `numpy.ndarray`
 ```python
+import numpy as np
+
 # Setup a model
 w1 = np.random.randn(1,1)
 b1 = np.zeros(1)
@@ -26,9 +29,11 @@ for epoch in range(n_epoch):
     b1 -= lr*grad_b1
 ```
 
-### Pytorch
-- Manual gradient calculation using `torch.Tenwor`
+### pytorch (1)
+- Manual gradient calculation using `torch.Tensor`
 ```python
+import torch
+
 # Setup a model
 w1 = torch.randn(1,1)
 b1 = torch.zeros(1)
@@ -49,9 +54,11 @@ for epoch in range(n_epoch):
     b1 -= lr*grad_b1
 ```
 
-### Pytorch (2)
+### pytorch (2)
 - `torch.nn` and `torch.optim`
 ```python
+import torch
+
 # Setup a model
 model = torch.nn.Linear(1,1)
 criterion = torch.nn.MSELoss()
@@ -74,6 +81,8 @@ for epoch in range(n_epoch):
 
 ### tensorflow
 ```python
+import tensorflow as tf
+
 x = tf.placeholder(tf.float32, [None,1])
 y = tf.placeholder(tf.float32, [None,1])
 
@@ -102,6 +111,8 @@ with tf.Session() as sess:
 
 ### keras
 ```python
+import keras
+
 # Setup a model
 model = keras.models.Sequential()
 model.add(keras.layers.Dense(1, input_dim=1))

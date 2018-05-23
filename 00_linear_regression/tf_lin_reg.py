@@ -29,16 +29,10 @@ grad_b1 = tf.reduce_sum(grad_y, 0)
 update_w1 = w1.assign(w1 - lr*grad_w1)
 update_b1 = b1.assign(b1 - lr*grad_b1)
 
-# Train the model:
-
-# To prevent CUDA_ERROR_OUT_OF_MEMORY:
-#config = tf.ConfigProto()
-#config.gpu_options.allow_growth = True
-#with tf.Session(config=config) as sess:
-
 with tf.Session() as sess:
     sess.run(tf.global_variables_initializer())
 
+    # Train the model:
     for epoch in range(n_epoch):
         sess.run([update_w1, update_b1], feed_dict={x:x_train, y:y_train})
         loss_ = sess.run(loss, feed_dict={x:x_train, y:y_train})
