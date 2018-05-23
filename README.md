@@ -13,7 +13,7 @@ Python codes to the same deep learning model in numpy, pytorch, tensorflow, kera
     <td> Tensors and Dynamic neural networks in Python with strong GPU acceleration  </td>
 </tr>
 <tr>
-    <td><b> <a href="https://www.tensorflow.org/">tesnsorflow</a> </b></td>
+    <td><b> <a href="https://www.tensorflow.org/">tensorflow</a> </b></td>
     <td> an open source software library for high performance numerical computation </td>
 </tr>
 <tr>
