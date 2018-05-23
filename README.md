@@ -46,7 +46,7 @@ Python codes to the same deep learning model in numpy, pytorch, tensorflow, kera
 5. Evaluate the trained model
 
 
-## [0. Linear Regression](https://github.com/nampluskr/deep-learning-with-python/tree/master/00_linear_regression)
+## [0. Linear Regression (y = 2 x + 10)](https://github.com/nampluskr/deep-learning-with-python/tree/master/00_linear_regression)
 - Model: Linear(y = w x + b) - Mean squared error
 - Learning rate: 0.01
 - Epochs: 1000

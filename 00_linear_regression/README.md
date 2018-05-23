@@ -1,4 +1,4 @@
-# Linear regression
+# Linear regression (y = 2 x + 10)
 
 - Model: Linear(y = w x + b) - Mean squared error
 - Learning rate: 0.01
@@ -55,7 +55,7 @@ for epoch in range(n_epoch):
 ```
 
 ### pytorch (2)
-- `torch.nn` and `torch.optim`
+- Usage of `torch.nn` and `torch.optim`
 ```python
 import torch
 

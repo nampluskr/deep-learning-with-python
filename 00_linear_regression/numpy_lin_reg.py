@@ -1,5 +1,6 @@
 import numpy as np
 
+
 # Set hyper-parameters:
 n_epoch, lr = 1000, 0.01
 
