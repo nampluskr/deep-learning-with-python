@@ -1,15 +1,9 @@
-import numpy as np
+import sys, os
+sys.path.append(os.pardir)
+
 from sklearn.neural_network import MLPClassifier
-from sklearn.datasets import fetch_mldata
-from sklearn.model_selection import train_test_split
 from datetime import datetime
-
-
-def onehot_encode(y, size):
-    y_onehot = np.zeros((y.shape[0], size), dtype=int)
-    for i, row in enumerate(y_onehot):
-        row[int(y[i])] = 1.0
-    return y_onehot
+import common.numpy_nn as np_nn
 
 
 if __name__ == "__main__":
@@ -19,12 +13,7 @@ if __name__ == "__main__":
     shuffle, verbose = True, True
 
     # Load data:
-    mnist = fetch_mldata('MNIST original')
-    x_train, x_test, y_train, y_test = train_test_split(
-            mnist.data/255., mnist.target, test_size=10000)
-
-    y_train = onehot_encode(y_train, 10)
-    y_test  = onehot_encode(y_test, 10)
+    x_train, y_train, x_test, y_test = np_nn.mnist(one_hot=True)
 
     # Setup a model:
     clf = MLPClassifier(solver='adam', activation='relu',

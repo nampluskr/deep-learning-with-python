@@ -1,8 +1,11 @@
+import sys, os
+sys.path.append(os.pardir)
+
 import torch
 import torch.nn.functional as F
-from torch.utils.data import DataLoader
-from torchvision import datasets, transforms
+from torch.utils.data import Dataset, DataLoader
 from datetime import datetime
+import common.numpy_nn as np_nn
 
 
 class Net(torch.nn.Module):
@@ -17,6 +20,28 @@ class Net(torch.nn.Module):
         if x.dim() > 2:
             x = x.view(-1, 784)
         return self.layers(x)
+
+
+class MNIST(Dataset):
+    def __init__(self, train=True):
+        self.train = train
+        x_train, y_train, x_test, y_test = np_nn.mnist(one_hot=False)
+
+        self.x_train = torch.from_numpy(x_train).float().to(device)
+        self.y_train = torch.from_numpy(y_train).long().to(device)
+        self.x_test = torch.from_numpy(x_test).float().to(device)
+        self.y_test = torch.from_numpy(y_test).long().to(device)
+
+        self.len = self.x_train.size(0) if train else self.x_test.size(0)
+
+    def __getitem__(self, index):
+        if self.train:
+            return self.x_train[index], self.y_train[index]
+        else:
+            return self.x_test[index], self.y_test[index]
+
+    def __len__(self):
+        return self.len
 
 
 class Evaluator:
@@ -44,12 +69,10 @@ if __name__ == "__main__":
     shuffle, verbose = True, True
 
     # Load data:
-    train_dataset = datasets.MNIST(root='../data/', train=True,
-                                   transform=transforms.ToTensor())
-    test_dataset = datasets.MNIST(root='../data/', train=False,
-                                  transform=transforms.ToTensor())
-    train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
-    test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
+    train_loader = DataLoader(MNIST(train=True), batch_size=batch_size,
+                              shuffle=shuffle)
+    test_loader = DataLoader(MNIST(train=False), batch_size=batch_size,
+                             shuffle=False)
 
     # Setup a model:
     torch.manual_seed(0)

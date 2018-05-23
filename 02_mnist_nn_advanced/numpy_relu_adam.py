@@ -1,21 +1,20 @@
-import pickle
+import sys, os
+sys.path.append(os.pardir)
+
 import numpy as np
 from datetime import datetime
 import numpy_nn_lib as nn
+import common.numpy_nn as np_nn
 
 
 if __name__ == "__main__":
 
-    # Load data:
-    mnist = pickle.load(open('..\data\mnist.pkl', 'rb'))
-    x_train = mnist['train_img']/255.
-    y_train = nn.onehot_encode(mnist['train_label'], 10)
-    x_test  = mnist['test_img']/255.
-    y_test  = nn.onehot_encode(mnist['test_label'], 10)
-
     # Set hyper-parameters:
     n_epoch, batch_size, lr = 10, 64, 0.001
     shuffle, verbose = True, True
+
+    # Load data:
+    x_train, y_train, x_test, y_test = np_nn.mnist(one_hot=True)
 
     # Setup a model:
     np.random.seed(0)
@@ -63,6 +62,6 @@ if __name__ == "__main__":
         print(message.format(epoch+1, 100, loss_train/n_batch, acc_train/n_batch),
               "(Time {})".format(datetime.now() - t_start))
 
-    # Evaluate the model after training:
+    # Evaluate the trained model:
     print("\nEpoch[{:3d}] > Test Loss: {:.3f} / Test Acc. {:.3f}".format(
                     epoch+1, model.loss(x_test, y_test), model.score(x_test, y_test)))
