@@ -1,7 +1,6 @@
 # Linear regression
 
 - Model: Linear(1,1) - Mean squared error
-- Activation: sigmoid
 - Optimizer: Gradient descent method
 
 ### numpy
