@@ -26,6 +26,25 @@ Python codes to the same deep learning model in numpy, pytorch, tensorflow, kera
 </tr>
 </table>
 
+## General machinie learning process
+
+1. Set hyper-paramerters
+  - # of epochs / batch size / learning rate
+2. Load dataset 
+  - Training data / validation data / test data
+  - Data / target
+3. Setup a model
+  - Sequences of layers
+  - Activation functions
+  - Criterion: loss function
+  - Optimizer to minimize the loss
+  - Accuracy
+4. Train the model
+  - Forward progapation
+  - Backward propagation
+  - Update medel parameters
+5. Evaluate the trained model
+
 
 ## [0. Linear Regression](https://github.com/nampluskr/deep-learning-with-python/tree/master/00_linear_regression)
 - Model: Linear(y = w x + b) - Mean squared error
