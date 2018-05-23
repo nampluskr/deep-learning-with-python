@@ -1,4 +1,4 @@
-# Classification of MNIST using neural nets
+# Linear regression
 
 - Model: Linear(1,1) - Mean squared error
 - Activation: sigmoid
