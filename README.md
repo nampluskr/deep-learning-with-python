@@ -53,6 +53,7 @@ Python codes to the same deep learning model in numpy, pytorch, tensorflow, kera
 
 ## [1. MNIST - Neural Networks - Basic](https://github.com/nampluskr/deep-learning-with-python/tree/master/01_mnist_nn_basic)
 - Model: **Linear(784,200) - Sigmoid - Linear(200,10) - Softmax - Cross entropy error**
+- Initialization: mean=0, stddev=0.1
 - Optimizer: Gradient descent method
 - Learning rate: 0.01
 - Epochs: 10 (batch_size: 64, shuffle)

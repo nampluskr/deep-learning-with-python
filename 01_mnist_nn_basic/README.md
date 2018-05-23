@@ -1,6 +1,7 @@
 # Classification of MNIST using neural networks
 
 - Model: **Linear(784,200) - Sigmoid - Linear(200,10) - Softmax - Cross entropy error**
+- Initialization: mean=0, stddev=0.1
 - Optimizer: Gradient descent method
 - Learning rate: 0.01
 - Epochs: 10 (batch_size: 64, shuffle)
@@ -242,7 +243,7 @@ with tf.Session() as sess:
                  feed_dict={x:x_train[batch], y:y_train[batch]})
 ```
 
-## tensorflow (2)
+### tensorflow (2)
 - Automatic gradient calculation with `tf.gradients`
 ```python
 # Backward propagation:
