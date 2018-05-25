@@ -29,9 +29,9 @@ if __name__ == "__main__":
 
     # Setup a model:
     torch.manual_seed(0)
-    w1 = torch.nn.init.normal_(torch.Tensor(784, 200), std=0.1)
+    w1 = torch.nn.init.normal_(torch.Tensor(784, 200), std=np.sqrt(1./784))
     b1 = torch.zeros(200)
-    w2 = torch.nn.init.normal_(torch.Tensor(200, 10), std=0.1)
+    w2 = torch.nn.init.normal_(torch.Tensor(200, 10), std=np.sqrt(1./200))
     b2 = torch.zeros(10)
 
     # Train the model:

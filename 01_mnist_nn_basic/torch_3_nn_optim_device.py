@@ -27,8 +27,8 @@ if __name__ == "__main__":
 
     # Setup a model:
     torch.manual_seed(0)
-
-    model = torch.nn.Sequential(torch.nn.Linear(784,200), torch.nn.Sigmoid(),
+    model = torch.nn.Sequential(torch.nn.Linear(784,200),
+                                torch.nn.Sigmoid(),
                                 torch.nn.Linear(200,10)).to(device)
     criterion = torch.nn.CrossEntropyLoss()
     optimizer = torch.optim.SGD(model.parameters(), lr=lr)

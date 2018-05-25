@@ -19,10 +19,10 @@ y = tf.placeholder(tf.float32, [None, 10])
 data = {x:x_train, y:y_train}
 
 # Setup a model:
-np.random.seed(0)
-w1 = tf.Variable(tf.random_normal([784, 200], stddev=0.1))
+tf.set_random_seed(0)
+w1 = tf.Variable(tf.random_normal([784, 200], stddev=np.sqrt(1./784)))
 b1 = tf.Variable(tf.zeros([200]))
-w2 = tf.Variable(tf.random_normal([200, 10], stddev=0.1))
+w2 = tf.Variable(tf.random_normal([200, 10], stddev=np.sqrt(1./200)))
 b2 = tf.Variable(tf.zeros([10]))
 
 # Forward propagation:

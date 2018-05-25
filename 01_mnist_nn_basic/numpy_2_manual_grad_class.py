@@ -4,15 +4,15 @@ sys.path.append(os.pardir)
 import numpy as np
 from datetime import datetime
 import common.numpy_nn as np_nn
-from common.mnist import mnist
+import common.mnist as mnist
 
 
 class NetNumpy:
     def __init__(self):
         np.random.seed(0)
-        self.w1 = np.random.normal(0, 0.1, (784, 200))
+        self.w1 = np.random.randn(784, 200)*np.sqrt(1./784)
         self.b1 = np.zeros(200)
-        self.w2 = np.random.normal(0, 0.1, (200, 10))
+        self.w2 = np.random.randn(200, 10)*np.sqrt(1./200)
         self.b2 = np.zeros(10)
 
     def forward(self, x):

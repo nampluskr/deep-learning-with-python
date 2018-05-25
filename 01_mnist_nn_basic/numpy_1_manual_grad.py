@@ -10,7 +10,7 @@ import common.mnist as mnist
 if __name__ == "__main__":
 
     # Set hyper-parameters:
-    n_epoch, batch_size, lr = 2, 64, 0.01
+    n_epoch, batch_size, lr = 10, 64, 0.01
     shuffle, verbose = True, True
 
     # Load data:
@@ -18,9 +18,9 @@ if __name__ == "__main__":
 
     # Setup a model:
     np.random.seed(0)
-    w1 = np.random.normal(0, 0.1, (784, 200))
+    w1 = np.random.randn(784, 200)*np.sqrt(1./784)
     b1 = np.zeros(200)
-    w2 = np.random.normal(0, 0.1, (200, 10))
+    w2 = np.random.randn(200, 10)*np.sqrt(1./200)
     b2 = np.zeros(10)
 
     # Train the model:

@@ -1,7 +1,7 @@
 # Classification of MNIST using neural networks
 
 - Model: **Linear(784,200) - Sigmoid - Linear(200,10) - Softmax - Cross entropy error**
-- Initialization: mean=0, stddev=0.1
+- Initialization: Xavier (mean=0, stddev=sqrt(1/n))
 - Optimizer: Gradient descent method
 - Learning rate: 0.01
 - Epochs: 10 (batch_size: 64, shuffle)
@@ -56,7 +56,7 @@ class NetNumpy:
         self.b1 = np.zeros(200)
         self.w2 = np.random.randn(200, 10)
         self.b2 = np.zeros(10)
-        
+
     def forward(self, x):
         self.data = x
         lin1 = np.dot(self.data, self.w1) + self.b1
@@ -179,10 +179,10 @@ for epoch in range(n_epoch):
     output = model(data)
     loss = criterion(output, target)
     optimizer.zero_grad()
-    
+
     # Backward propagation:
     loss.backward()
-    
+
     # Update model parameters:
     optimizer.step()
 ```

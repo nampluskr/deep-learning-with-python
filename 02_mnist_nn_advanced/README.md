@@ -1,7 +1,7 @@
 # Classification of MNIST using neural netwoks with various techniques
 
 - Model: **Linear(784,200) - ReLU - Linear(200,200) - ReLU - Linear(200,10) - Softmax - Cross entropy error**
-- Initialization: He
+- Initialization: He (mean=0, stddev=sqrt(2/n))
 - Optimizer: Adam method
 - Learning rate: 0.001
 - Epochs: 10 (batch_size: 64, shuffle)
