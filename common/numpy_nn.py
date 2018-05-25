@@ -60,14 +60,14 @@ def onehot_encode(y, size):
     return y_onehot
 
 
-def mnist(one_hot=True, flatten=True):
+def mnist(onehot=True, flatten=True):
     mnist = pickle.load(open('..\data\mnist.pkl', 'rb'))
     x_train = mnist['train_img']/255.
     x_test  = mnist['test_img']/255.
     y_train = mnist['train_label']
     y_test  = mnist['test_label']
 
-    if one_hot:
+    if onehot:
         y_train = onehot_encode(y_train, 10)
         y_test = onehot_encode(y_test, 10)
 

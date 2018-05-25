@@ -12,7 +12,7 @@ n_epoch, batch_size, lr = 10, 64, 0.01
 shuffle, verbose = True, True
 
 # Load data:
-x_train, y_train, x_test, y_test = np_nn.mnist(one_hot=True)
+x_train, y_train, x_test, y_test = np_nn.mnist(onehot=True)
 
 x = tf.placeholder(tf.float32, [None, 784])
 y = tf.placeholder(tf.float32, [None, 10])

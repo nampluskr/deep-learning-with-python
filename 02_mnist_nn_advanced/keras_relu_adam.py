@@ -18,7 +18,7 @@ n_epoch, batch_size, lr = 10, 64, 0.001
 verbose = True
 
 # Load data:
-x_train, y_train, x_test, y_test = np_nn.mnist(one_hot=True)
+x_train, y_train, x_test, y_test = np_nn.mnist(onehot=True)
 
 # Setup a model:
 model = Sequential()

@@ -13,16 +13,16 @@ if __name__ == "__main__":
     shuffle, verbose = True, True
 
     # Load data:
-    x_train, y_train, x_test, y_test = np_nn.mnist(one_hot=True)
+    x_train, y_train, x_test, y_test = np_nn.mnist(onehot=True)
 
     # Setup a model:
     np.random.seed(0)
-    layers = [nn.Linear(784, 200, '1', activation='relu'), nn.Relu(),
-              nn.Linear(200, 200, '2', activation='relu'), nn.Relu(),
-              nn.Linear(200, 10, '3')]
-    criterion = nn.SoftmaxWithLoss()
-    model = nn.MultiNetNumpy(layers, criterion)
-    optimizer = nn.Adam(model, lr=lr)
+    layers = [np_nn.Linear(784, 200, '1', activation='relu'), np_nn.Relu(),
+              np_nn.Linear(200, 200, '2', activation='relu'), np_nn.Relu(),
+              np_nn.Linear(200, 10, '3')]
+    criterion = np_nn.SoftmaxWithLoss()
+    model = np_nn.MultiNetNumpy(layers, criterion)
+    optimizer = np_nn.Adam(model, lr=lr)
 
     # Train the model:
     n_data = x_train.shape[0]

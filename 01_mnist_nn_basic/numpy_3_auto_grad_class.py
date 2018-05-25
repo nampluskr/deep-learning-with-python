@@ -9,7 +9,7 @@ import common.numpy_nn as np_nn
 if __name__ == "__main__":
 
     # Load data:
-    x_train, y_train, x_test, y_test = np_nn.mnist(one_hot=True)
+    x_train, y_train, x_test, y_test = np_nn.mnist(onehot=True)
 
     # Set hyper-parameters:
     n_epoch, batch_size, lr = 10, 64, 0.01

@@ -13,7 +13,7 @@ if __name__ == "__main__":
     shuffle, verbose = True, True
 
     # Load data:
-    x_train, y_train, x_test, y_test = np_nn.mnist(one_hot=True)
+    x_train, y_train, x_test, y_test = np_nn.mnist(onehot=True)
 
     # Setup a model:
     clf = MLPClassifier(solver='sgd', activation='logistic',
