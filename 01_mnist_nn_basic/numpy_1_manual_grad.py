@@ -4,6 +4,7 @@ sys.path.append(os.pardir)
 import numpy as np
 from datetime import datetime
 import common.numpy_nn as np_nn
+import data.mnist as mnist
 
 
 if __name__ == "__main__":

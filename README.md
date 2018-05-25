@@ -80,7 +80,17 @@ Python codes to the same deep learning model in numpy, pytorch, tensorflow, kera
 # Tips
 
 ## How to load MNIST datasets
-- Load [mnist.pkl](https://github.com/WegraLee/deep-learning-from-scratch/tree/master/dataset)
+- Load MNIST dataset using `minit()`:
+```python
+import sys, os
+sys.path.append(os.pardir)
+import data.mnist as mnist
+
+# Load data:
+x_train, y_train, x_test, y_test = mnist(onehot=True)
+```
+
+- `mnist()` is defined in `data\mnist.py`.
 ```python
 def mnist(onehot=True, flatten=True):
     mnist = pickle.load(open('..\data\mnist.pkl', 'rb'))
@@ -104,9 +114,6 @@ def onehot_encode(y, size):
     for i, row in enumerate(y_onehot):
         row[int(y[i])] = 1.0
     return y_onehot
-
-# Load data:
-x_train, y_train, x_test, y_test = np_nn.mnist(onehot=True)
 ```
 
 - pytorch
