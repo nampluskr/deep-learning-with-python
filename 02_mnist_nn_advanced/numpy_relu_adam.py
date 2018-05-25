@@ -14,7 +14,7 @@ if __name__ == "__main__":
     shuffle, verbose = True, True
 
     # Load data:
-    x_train, y_train, x_test, y_test = mnist.load(flatten=False)
+    x_train, y_train, x_test, y_test = mnist.load()
 
     # Setup a model:
     np.random.seed(0)

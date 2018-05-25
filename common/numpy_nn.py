@@ -76,7 +76,7 @@ class MultiNetNumpy:
 
     def info(self):
         names = [l.name.title() for l in self.layers] + [self.error.name]
-        print("Neural net >>", ' - '.join(names))
+        print("Model >>", ' - '.join(names))
 
     def train(self):
         for layer in self.layers:

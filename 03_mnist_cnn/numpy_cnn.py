@@ -124,7 +124,7 @@ if __name__ == "__main__":
               Convolution(32, 64, name='2', kernel_size=(3,3)),
               MaxPooling(), Dropout(), Flatten(),
               np_nn.Linear(64*7*7, 256, name='3', activation='relu'),
-              np_nn.Relu(),
+              np_nn.Relu(), Dropout(),
               np_nn.Linear(256,10, name='4', activation='relu')]
 
     criterion = np_nn.SoftmaxWithLoss()
@@ -171,10 +171,13 @@ if __name__ == "__main__":
 
     # Evaluate the trained model:
     model.eval()
+    n_data = x_test.shape[0]
+    n_batch = n_data // batch_size + (1 if n_data % batch_size else 0)
+
     loss_test, acc_test = 0, 0
     for i in range(n_batch):
-        batch = index[i*batch_size:(i+1)*batch_size]
-        data, target = x_train[batch], y_train[batch]
+        batch = np.arange(n_data)[i*batch_size:(i+1)*batch_size]
+        data, target = x_test[batch], y_test[batch]
 
         loss_batch = model.loss(data, target)
         acc_batch = model.score(data, target)
@@ -182,4 +185,4 @@ if __name__ == "__main__":
         acc_test += acc_batch
 
     print("\nEpoch[{:3d}] > Test Loss: {:.3f} / Test Acc. {:.3f}".format(
-                    epoch+1, loss_test/n_batch, acc_test/n_batch))
+                    n_epoch, loss_test/n_batch, acc_test/n_batch))

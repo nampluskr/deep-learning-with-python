@@ -254,15 +254,15 @@ class Flatten:
 
 ### Setup a CNN model
 ```python
-    layers = [Convolution(1, 32, name='1', kernel_size=(3,3)),
-              np_nn.Relu(), MaxPooling(), Dropout(),
-              Convolution(32, 64, name='2', kernel_size=(3,3)),
-              MaxPooling(), Dropout(), Flatten(),
-              np_nn.Linear(64*7*7, 256, name='3', activation='relu'),
-              np_nn.Relu(),
-              np_nn.Linear(256,10, name='4', activation='relu')]
+layers = [Convolution(1, 32, name='1', kernel_size=(3,3)),
+          np_nn.Relu(), MaxPooling(), Dropout(),
+          Convolution(32, 64, name='2', kernel_size=(3,3)),
+          MaxPooling(), Dropout(), Flatten(),
+          np_nn.Linear(64*7*7, 256, name='3', activation='relu'),
+          np_nn.Relu(),
+          np_nn.Linear(256,10, name='4', activation='relu')]
 
-    criterion = np_nn.SoftmaxWithLoss()
-    model = np_nn.MultiNetNumpy(layers, criterion)
-    optimizer = np_nn.Adam(model, lr=lr)
+criterion = np_nn.SoftmaxWithLoss()
+model = np_nn.MultiNetNumpy(layers, criterion)
+optimizer = np_nn.Adam(model, lr=lr)
 ```
