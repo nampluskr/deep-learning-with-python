@@ -1,7 +1,11 @@
+import sys, os
+sys.path.append(os.pardir)
+
 import numpy as np
 import tensorflow as tf
-import keras
-from keras.datasets import mnist
+
+#from keras.datasets import mnist
+import common.mnist as mnist
 from datetime import datetime
 
 
@@ -10,11 +14,15 @@ n_epoch, batch_size, lr = 10, 64, 0.001
 shuffle, verbose = True, True
 
 # Load data:
-(x_train, y_train), (x_test, y_test) = mnist.load_data()
-x_train = x_train.reshape(-1, 28, 28, 1)/255.
-y_train = keras.utils.to_categorical(y_train, 10)
-x_test = x_test.reshape(-1, 28, 28, 1)/255.
-y_test = keras.utils.to_categorical(y_test, 10)
+x_train, y_train, x_test, y_test = mnist.load(flatten=False)
+x_train = x_train.reshape(-1, 28, 28, 1)
+x_test = x_test.reshape(-1, 28, 28, 1)
+
+#(x_train, y_train), (x_test, y_test) = mnist.load_data()
+#x_train = x_train.reshape(-1, 28, 28, 1)/255.
+#y_train = keras.utils.to_categorical(y_train, 10)
+#x_test = x_test.reshape(-1, 28, 28, 1)/255.
+#y_test = keras.utils.to_categorical(y_test, 10)
 
 x = tf.placeholder(tf.float32, [None, 28, 28, 1])
 y = tf.placeholder(tf.float32, [None, 10])

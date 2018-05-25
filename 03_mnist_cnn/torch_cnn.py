@@ -1,22 +1,25 @@
+import sys, os
+sys.path.append(os.pardir)
+
 import torch
 import torch.nn.functional as F
-from torch.utils.data import DataLoader
-from torchvision import datasets, transforms
+from torch.utils.data import Dataset, DataLoader
 from datetime import datetime
+import common.mnist as mnist
 
 
 class CNN(torch.nn.Module):
     def __init__(self):
         super().__init__()
         self.layer1 = torch.nn.Sequential(
-                torch.nn.Conv2d(1, 32, 3, padding=1),   # N x 32 x 28 x 28
+                torch.nn.Conv2d(1, 32, 3, padding=1),   # N, 32, 28, 28
                 torch.nn.ReLU(),
-                torch.nn.MaxPool2d(2, 2))               # N x 64 x 14 x 14
+                torch.nn.MaxPool2d(2, 2))               # N, 32, 14, 14
 
         self.layer2 = torch.nn.Sequential(
-                torch.nn.Conv2d(32, 64, 3, padding=1),  # N x 32 x 28 x 28
+                torch.nn.Conv2d(32, 64, 3, padding=1),  # N, 64, 14, 14
                 torch.nn.ReLU(),
-                torch.nn.MaxPool2d(2,2))                # N x 64 x 7 x 7
+                torch.nn.MaxPool2d(2,2))                # N, 64, 7, 7
 
         self.fc1 = torch.nn.Sequential(
                 torch.nn.Linear(64*7*7, 256), torch.nn.ReLU())
@@ -28,6 +31,29 @@ class CNN(torch.nn.Module):
         x = x.view(-1, 64*7*7)
         x = F.dropout(self.fc1(x), training=self.training)
         return self.fc2(x)
+
+
+class MNIST(Dataset):
+    def __init__(self, train=True):
+        self.train = train
+        x_train, y_train, x_test, y_test = mnist.load(onehot=False,
+                                                      flatten=False)
+
+        self.x_train = torch.from_numpy(x_train).float().to(device)
+        self.y_train = torch.from_numpy(y_train).long().to(device)
+        self.x_test = torch.from_numpy(x_test).float().to(device)
+        self.y_test = torch.from_numpy(y_test).long().to(device)
+
+        self.len = self.x_train.size(0) if train else self.x_test.size(0)
+
+    def __getitem__(self, index):
+        if self.train:
+            return self.x_train[index], self.y_train[index]
+        else:
+            return self.x_test[index], self.y_test[index]
+
+    def __len__(self):
+        return self.len
 
 
 class Evaluator:
@@ -54,14 +80,10 @@ if __name__ == "__main__":
     shuffle, verbose = True, True
 
     # Load data:
-    transforms = transforms.Compose([transforms.ToTensor(),
-                           transforms.Normalize((0.1307,), (0.3081,))])
-    train_dataset = datasets.MNIST(root='../data/', train=True,
-                                   transform=transforms)
-    test_dataset = datasets.MNIST(root='../data/', train=False,
-                                  transform=transforms)
-    train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
-    test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
+    train_loader = DataLoader(MNIST(train=True), batch_size=batch_size,
+                              shuffle=shuffle)
+    test_loader = DataLoader(MNIST(train=False), batch_size=batch_size,
+                             shuffle=False)
 
     # Setup a model:
     torch.manual_seed(0)

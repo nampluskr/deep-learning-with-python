@@ -2,7 +2,7 @@ import sys, os
 sys.path.append(os.pardir)
 
 import keras
-import common.numpy_nn as np_nn
+import common.mnist as mnist
 
 
 # To prevent CUDA_ERROR_OUT_OF_MEMORY:
@@ -15,7 +15,7 @@ n_epoch, batch_size, lr = 10, 64, 0.01
 verbose = True
 
 # Load data:
-x_train, y_train, x_test, y_test = np_nn.mnist(onehot=True)
+x_train, y_train, x_test, y_test = mnist.load(onehot=True)
 
 # Setup a model:
 model = keras.models.Sequential()

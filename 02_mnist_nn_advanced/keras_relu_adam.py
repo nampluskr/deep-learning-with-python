@@ -5,7 +5,7 @@ import keras
 from keras.models import Sequential
 from keras.layers import Dense
 from keras import optimizers
-import common.numpy_nn as np_nn
+import common.mnist as mnist
 
 
 # To prevent CUDA_ERROR_OUT_OF_MEMORY:
@@ -18,7 +18,7 @@ n_epoch, batch_size, lr = 10, 64, 0.001
 verbose = True
 
 # Load data:
-x_train, y_train, x_test, y_test = np_nn.mnist(onehot=True)
+x_train, y_train, x_test, y_test = mnist.load()
 
 # Setup a model:
 model = Sequential()

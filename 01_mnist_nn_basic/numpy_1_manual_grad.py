@@ -4,17 +4,17 @@ sys.path.append(os.pardir)
 import numpy as np
 from datetime import datetime
 import common.numpy_nn as np_nn
-import data.mnist as mnist
+import common.mnist as mnist
 
 
 if __name__ == "__main__":
 
     # Set hyper-parameters:
-    n_epoch, batch_size, lr = 10, 64, 0.01
+    n_epoch, batch_size, lr = 2, 64, 0.01
     shuffle, verbose = True, True
 
     # Load data:
-    x_train, y_train, x_test, y_test = np_nn.mnist(one_hot=True)
+    x_train, y_train, x_test, y_test = mnist.load()
 
     # Setup a model:
     np.random.seed(0)

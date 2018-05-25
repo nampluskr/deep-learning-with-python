@@ -80,14 +80,14 @@ Python codes to the same deep learning model in numpy, pytorch, tensorflow, kera
 # Tips
 
 ## How to load MNIST datasets
-- Load MNIST dataset using `minit()`:
+- Load MNIST dataset using `minit(onehot=True, flatten=False)`:
 ```python
 import sys, os
 sys.path.append(os.pardir)
-import data.mnist as mnist
+import common.mnist as mnist
 
 # Load data:
-x_train, y_train, x_test, y_test = mnist(onehot=True)
+x_train, y_train, x_test, y_test = mnist.load()
 ```
 
 - `mnist()` is defined in `data\mnist.py`.
@@ -121,8 +121,10 @@ def onehot_encode(y, size):
 from torch.utils.data import DataLoader
 from torchvision import datasets, transforms
 
-train_dataset = datasets.MNIST(root='../data/', train=True, transform=transforms.ToTensor())
-test_dataset = datasets.MNIST(root='../data/', train=False, transform=transforms.ToTensor())
+train_dataset = datasets.MNIST(root='../data/', train=True, download=true,
+                    transform=transforms.ToTensor())
+test_dataset = datasets.MNIST(root='../data/', train=False, download=true,
+                    transform=transforms.ToTensor())
 train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
 test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
 ```

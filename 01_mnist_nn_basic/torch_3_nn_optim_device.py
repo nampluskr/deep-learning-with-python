@@ -5,7 +5,7 @@ import numpy as np
 import torch
 import torch.nn.functional as F
 from datetime import datetime
-import common.numpy_nn as np_nn
+import common.mnist as mnist
 
 
 if __name__ == "__main__":
@@ -18,7 +18,7 @@ if __name__ == "__main__":
     shuffle, verbose = True, True
 
     # Load data:
-    x_train, y_train, x_test, y_test = np_nn.mnist(onehot=False)
+    x_train, y_train, x_test, y_test = mnist.load(onehot=False)
 
     x_train = torch.from_numpy(x_train).float().to(device)
     y_train = torch.from_numpy(y_train).long().to(device)

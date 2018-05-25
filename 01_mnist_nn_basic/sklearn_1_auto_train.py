@@ -3,8 +3,7 @@ sys.path.append(os.pardir)
 
 from sklearn.neural_network import MLPClassifier
 from datetime import datetime
-import common.numpy_nn as np_nn
-
+import common.mnist as mnist
 
 if __name__ == "__main__":
 
@@ -13,7 +12,7 @@ if __name__ == "__main__":
     shuffle, verbose = True, True
 
     # Load data:
-    x_train, y_train, x_test, y_test = np_nn.mnist(onehot=True)
+    x_train, y_train, x_test, y_test = mnist.load()
 
     # Setup a model:
     clf = MLPClassifier(solver='sgd', activation='logistic',

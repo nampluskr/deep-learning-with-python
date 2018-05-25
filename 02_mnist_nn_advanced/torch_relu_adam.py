@@ -5,7 +5,7 @@ import torch
 import torch.nn.functional as F
 from torch.utils.data import Dataset, DataLoader
 from datetime import datetime
-import common.numpy_nn as np_nn
+import common.mnist as mnist
 
 
 class Net(torch.nn.Module):
@@ -25,7 +25,7 @@ class Net(torch.nn.Module):
 class MNIST(Dataset):
     def __init__(self, train=True):
         self.train = train
-        x_train, y_train, x_test, y_test = np_nn.mnist(onehot=False)
+        x_train, y_train, x_test, y_test = mnist.load(onehot=False)
 
         self.x_train = torch.from_numpy(x_train).float().to(device)
         self.y_train = torch.from_numpy(y_train).long().to(device)

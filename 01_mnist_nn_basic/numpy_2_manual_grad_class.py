@@ -4,6 +4,7 @@ sys.path.append(os.pardir)
 import numpy as np
 from datetime import datetime
 import common.numpy_nn as np_nn
+from common.mnist import mnist
 
 
 class NetNumpy:
@@ -54,7 +55,7 @@ if __name__ == "__main__":
     shuffle, verbose = True, True
 
     # Load data:
-    x_train, y_train, x_test, y_test = np_nn.mnist(onehot=True)
+    x_train, y_train, x_test, y_test = mnist.load()
 
     # Setup a model:
     model = NetNumpy()
