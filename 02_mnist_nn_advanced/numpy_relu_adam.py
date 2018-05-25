@@ -18,8 +18,10 @@ if __name__ == "__main__":
 
     # Setup a model:
     np.random.seed(0)
-    layers = [np_nn.Linear(784, 200, '1', activation='relu'), np_nn.Relu(),
-              np_nn.Linear(200, 200, '2', activation='relu'), np_nn.Relu(),
+    layers = [np_nn.Linear(784, 200, '1', activation='relu'),
+              np_nn.Relu(),
+              np_nn.Linear(200, 200, '2', activation='relu'),
+              np_nn.Relu(),
               np_nn.Linear(200, 10, '3')]
     criterion = np_nn.SoftmaxWithLoss()
     model = np_nn.MultiNetNumpy(layers, criterion)

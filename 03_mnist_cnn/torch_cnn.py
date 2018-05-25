@@ -12,14 +12,14 @@ class CNN(torch.nn.Module):
     def __init__(self):
         super().__init__()
         self.layer1 = torch.nn.Sequential(
-                torch.nn.Conv2d(1, 32, 3, padding=1),   # N, 32, 28, 28
+                torch.nn.Conv2d(1, 32, (3,3), padding=1),  # N, 32, 28, 28
                 torch.nn.ReLU(),
-                torch.nn.MaxPool2d(2, 2))               # N, 32, 14, 14
+                torch.nn.MaxPool2d(2, 2))                  # N, 32, 14, 14
 
         self.layer2 = torch.nn.Sequential(
-                torch.nn.Conv2d(32, 64, 3, padding=1),  # N, 64, 14, 14
+                torch.nn.Conv2d(32, 64, (3,3), padding=1), # N, 64, 14, 14
                 torch.nn.ReLU(),
-                torch.nn.MaxPool2d(2,2))                # N, 64, 7, 7
+                torch.nn.MaxPool2d(2,2))                   # N, 64, 7, 7
 
         self.fc1 = torch.nn.Sequential(
                 torch.nn.Linear(64*7*7, 256), torch.nn.ReLU())

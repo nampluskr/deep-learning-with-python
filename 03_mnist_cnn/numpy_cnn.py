@@ -4,10 +4,13 @@ sys.path.append(os.pardir)
 import numpy as np
 from datetime import datetime
 import common.numpy_nn as np_nn
+import common.mnist as mnist
 
 
 class Convolution:
-    def __init__(self, ch_in, ch_out, kernel_size=(3,3), stride=1, padding=1):
+    def __init__(self, ch_in, ch_out, name,
+                 kernel_size=(3,3), stride=1, padding=1):
+        self.name = 'conv' + name
         self.w = np.random.randn(ch_out, ch_in, *kernel_size)
         self.b = np.zeros(ch_out)
         self.h_kernel, self.w_kernel = kernel_size
@@ -44,6 +47,7 @@ class Convolution:
 
 class MaxPooling:
     def __init__(self, kernel_size=(2,2), stride=2, padding=0):
+        self.name = 'pooling'
         self.h_kernel, self.w_kernel = kernel_size
         self.stride, self.padding = stride, padding
 
@@ -77,44 +81,105 @@ class MaxPooling:
 
 class Dropout:
     def __init__(self, ratio=0.5):
+        self.name = 'dropout'
         self.ratio = ratio
+        self.is_training = False
 
-    def forward(self, x, is_training=True):
-        self.mask = np.random.rand(*x.shape) > self.ratio if is_training \
-                    else np.ones(*x.shape)
-
-        return x*self.mask
+    def forward(self, x):
+        if self.is_training:
+            self.mask = np.random.rand(*x.shape) > self.ratio
+            return x*self.mask
+        else:
+            return x
 
     def backward(self, dout):
         return dout*self.mask
 
 
+class Flatten:
+    def __init__(self):
+        self.name = 'flatten'
+
+    def forward(self, x):
+        self.x = x
+        return x.reshape(x.shape[0], -1)
+
+    def backward(self, dy):
+        return dy.reshape(*self.x.shape)
+
+
 if __name__ == "__main__":
 
     # Set hyper-parameters:
-    n_epoch, batch_size, lr = 10, 64, 0.001
+    n_epoch, batch_size, lr = 1, 64, 0.001
     shuffle, verbose = True, True
 
     # Load data:
-    x_train, y_train, x_test, y_test = np_nn.mnist(one_hot=True,
-                                                   flatten=False)
+    x_train, y_train, x_test, y_test = mnist.load(onehot=True, flatten=False)
 
-    conv = Convolution(1, 32, (3,3), 1, 1)
-    pool = MaxPooling((2,2), 2, 0)
+    # Setup a model:
+    np.random.seed(0)
+    layers = [Convolution(1, 32, name='1', kernel_size=(3,3)),
+              np_nn.Relu(), MaxPooling(), Dropout(),
+              Convolution(32, 64, name='2', kernel_size=(3,3)),
+              MaxPooling(), Dropout(), Flatten(),
+              np_nn.Linear(64*7*7, 256, name='3', activation='relu'),
+              np_nn.Relu(),
+              np_nn.Linear(256,10, name='4', activation='relu')]
 
-    input_data = x_train[:100]
-    print("Input   >>", input_data.shape)
+    criterion = np_nn.SoftmaxWithLoss()
+    model = np_nn.MultiNetNumpy(layers, criterion)
+    optimizer = np_nn.Adam(model, lr=lr)
 
-    out = conv.forward(input_data)
-    print("Conv    >>", out.shape)
+    # Train the model:
+    n_data = x_train.shape[0]
+    n_batch = n_data // batch_size + (1 if n_data % batch_size else 0)
 
-    out = pool.forward(out)
-    print("Pooling >>", out.shape)
+    message = "Epoch[{:3d}] ({:3d}%) > Loss {:.3f} / Acc. {:.3f}"
 
+    t_start = datetime.now()
+    for epoch in range(n_epoch):
+        index = np.arange(x_train.shape[0])
+        if shuffle:
+            np.random.shuffle(index)
 
-    dout = np.ones_like(out)
-    dout = pool.backward(dout)
-    print(dout.shape)
+        if verbose:
+            print('')
 
-    dout = conv.backward(dout)
-    print(dout.shape)
+        model.train()
+        loss_train, acc_train = 0, 0
+        for i in range(n_batch):
+            batch = index[i*batch_size:(i+1)*batch_size]
+            data, target = x_train[batch], y_train[batch]
+
+            loss = model.loss(data, target)
+            model.backward()
+            optimizer.update()
+
+            # Evaluate the model after an epoch:
+            loss_batch = model.loss(data, target)
+            acc_batch = model.score(data, target)
+            loss_train += loss_batch
+            acc_train += acc_batch
+
+            if verbose and (i+1) % 100 == 0:
+                print(message.format(epoch+1, int(100*(i+1)*batch_size/n_data),
+                                     loss_batch, acc_batch))
+
+        print(message.format(epoch+1, 100, loss_train/n_batch, acc_train/n_batch),
+              "(Time {})".format(datetime.now() - t_start))
+
+    # Evaluate the trained model:
+    model.eval()
+    loss_test, acc_test = 0, 0
+    for i in range(n_batch):
+        batch = index[i*batch_size:(i+1)*batch_size]
+        data, target = x_train[batch], y_train[batch]
+
+        loss_batch = model.loss(data, target)
+        acc_batch = model.score(data, target)
+        loss_test += loss_batch
+        acc_test += acc_batch
+
+    print("\nEpoch[{:3d}] > Test Loss: {:.3f} / Test Acc. {:.3f}".format(
+                    epoch+1, loss_test/n_batch, acc_test/n_batch))

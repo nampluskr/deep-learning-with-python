@@ -78,6 +78,16 @@ class MultiNetNumpy:
         names = [l.name.title() for l in self.layers] + [self.error.name]
         print("Neural net >>", ' - '.join(names))
 
+    def train(self):
+        for layer in self.layers:
+            if layer.name == ('dropout'):
+                layer.is_training = True
+
+    def eval(self):
+        for layer in self.layers:
+            if layer.name == ('dropout'):
+                layer.is_training = False
+
 
 #########################################################################
 # Layers:
@@ -125,7 +135,7 @@ class Relu:
 
 class SoftmaxWithLoss:
     def __init__(self):
-        self.name = "Softmax - CrossEntropyError"
+        self.name = "Softmax - Cross Entropy"
 
     def forward(self, y, t):
         self.y, self.t = softmax(y), t
@@ -149,7 +159,7 @@ class GradientDescent:
 
     def update(self):
         for layer in reversed(self.model.layers):
-            if layer.name.startswith('linear'):
+            if layer.name.startswith('linear') or layer.name.startswith('conv'):
                 layer.w -= self.lr*layer.dw
                 layer.b -= self.lr*layer.db
 
@@ -164,7 +174,7 @@ class Momentum:
 
     def update(self):
         for layer in reversed(self.model.layers):
-            if layer.name.startswith('linear'):
+            if layer.name.startswith('linear') or layer.name.startswith('conv'):
                 name = layer.name
 
                 if name not in self.v1.keys():
@@ -187,7 +197,7 @@ class AdaGrad:
 
     def update(self):
         for layer in reversed(self.model.layers):
-            if layer.name.startswith('linear'):
+            if layer.name.startswith('linear') or layer.name.startswith('conv'):
                 name = layer.name
 
                 if name not in self.h1.keys():
@@ -211,7 +221,7 @@ class Adam:
 
     def update(self):
         for layer in reversed(self.model.layers):
-            if layer.name.startswith('linear'):
+            if layer.name.startswith('linear') or layer.name.startswith('conv'):
                 name = layer.name
 
                 if name not in self.i.keys():

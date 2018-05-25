@@ -13,7 +13,7 @@ if __name__ == "__main__":
     x_train, y_train, x_test, y_test = mnist.load()
 
     # Set hyper-parameters:
-    n_epoch, batch_size, lr = 10, 64, 0.01
+    n_epoch, batch_size, lr = 2, 64, 0.01
     shuffle, verbose = True, True
 
     # Setup a model:
