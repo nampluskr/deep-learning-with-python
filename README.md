@@ -30,7 +30,7 @@ Python codes to the same deep learning model in numpy, pytorch, tensorflow, kera
 
 1. Set hyper-paramerters
    - The number of epochs / batch size / learning rate
-2. Load dataset 
+2. Load dataset
    - Training data / validation data / test data
    - Data / target
 3. Setup a model
@@ -80,22 +80,33 @@ Python codes to the same deep learning model in numpy, pytorch, tensorflow, kera
 # Tips
 
 ## How to load MNIST datasets
-- numpy: [source](https://github.com/WegraLee/deep-learning-from-scratch/tree/master/dataset)
+- Load [mnist.pkl](https://github.com/WegraLee/deep-learning-from-scratch/tree/master/dataset)
 ```python
-import pickle
-import numpy as np
+def mnist(onehot=True, flatten=True):
+    mnist = pickle.load(open('..\data\mnist.pkl', 'rb'))
+    x_train = mnist['train_img']/255.
+    x_test  = mnist['test_img']/255.
+    y_train = mnist['train_label']
+    y_test  = mnist['test_label']
+
+    if onehot:
+        y_train = onehot_encode(y_train, 10)
+        y_test = onehot_encode(y_test, 10)
+
+    if not flatten:
+        x_train = x_train.reshape(-1,1,28,28)
+        x_test = x_test.reshape(-1,1,28,28)
+
+    return x_train, y_train, x_test, y_test
 
 def onehot_encode(y, size):
     y_onehot = np.zeros((y.shape[0], size), dtype=int)
     for i, row in enumerate(y_onehot):
         row[int(y[i])] = 1.0
     return y_onehot
-    
-mnist = pickle.load(open('..\data\mnist.pkl', 'rb'))
-x_train = mnist['train_img']/255.
-y_train = nn.onehot_encode(mnist['train_label'], 10)
-x_test  = mnist['test_img']/255.
-y_test  = nn.onehot_encode(mnist['test_label'], 10)
+
+# Load data:
+x_train, y_train, x_test, y_test = np_nn.mnist(onehot=True)
 ```
 
 - pytorch
