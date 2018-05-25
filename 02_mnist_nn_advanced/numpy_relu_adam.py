@@ -3,7 +3,6 @@ sys.path.append(os.pardir)
 
 import numpy as np
 from datetime import datetime
-import numpy_nn_lib as nn
 import common.numpy_nn as np_nn
 
 
