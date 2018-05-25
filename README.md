@@ -195,7 +195,6 @@ session = keras.backend.tf.Session(config=config)
 - https://github.com/hunkim/DeepLearningZeroToAll
 - 핸즈온 머신러닝 (https://github.com/rickiepark/handson-ml)
 - 골빈해커의 3분 딥러닝 텐서플로맛 (https://github.com/golbin/TensorFlow-Tutorials)
-- 강화학습 첫걸음 (https://github.com/awjuliani/DeepRL-Agents)
 
 ## keras
 - https://github.com/keras-team/keras

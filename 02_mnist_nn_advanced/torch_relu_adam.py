@@ -27,10 +27,10 @@ class MNIST(Dataset):
         self.train = train
         x_train, y_train, x_test, y_test = mnist.load(onehot=False)
 
-        self.x_train = torch.from_numpy(x_train).float().to(device)
-        self.y_train = torch.from_numpy(y_train).long().to(device)
-        self.x_test = torch.from_numpy(x_test).float().to(device)
-        self.y_test = torch.from_numpy(y_test).long().to(device)
+        self.x_train = torch.from_numpy(x_train).float()
+        self.y_train = torch.from_numpy(y_train).long()
+        self.x_test = torch.from_numpy(x_test).float()
+        self.y_test = torch.from_numpy(y_test).long()
 
         self.len = self.x_train.size(0) if train else self.x_test.size(0)
 

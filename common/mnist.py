@@ -2,7 +2,7 @@ import pickle
 import numpy as np
 
 
-def load(onehot=True, flatten=True):
+def load(flatten=True, onehot=True):
     mnist = pickle.load(open('..\data\mnist.pkl', 'rb'))
     x_train = mnist['train_img']/255.
     x_test  = mnist['test_img']/255.
