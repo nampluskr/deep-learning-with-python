@@ -33,9 +33,6 @@ x_test = x_test.reshape(-1, 28, 28, 1)
 model = Sequential()
 model.add(keras.layers.Conv2D(32, (3, 3), activation='relu',
           input_shape=(28, 28, 1)))
-model.add(keras.layers.Conv2D(32, (3, 3), activation='relu'))
-
-
 model.add(keras.layers.MaxPooling2D(pool_size=(2, 2)))
 model.add(keras.layers.Dropout(0.5))
 
