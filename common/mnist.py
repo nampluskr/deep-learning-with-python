@@ -26,6 +26,7 @@ def onehot_encode(y, size):
         row[int(y[i])] = 1.0
     return y_onehot
 
+
 if __name__ == "__main__":
 
     x_train, y_train, x_test, y_test = load()

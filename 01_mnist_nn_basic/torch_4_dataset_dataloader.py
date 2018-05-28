@@ -2,10 +2,9 @@ import sys, os
 sys.path.append(os.pardir)
 
 import torch
-import torch.nn.functional as F
-from torch.utils.data import Dataset, DataLoader
+from torch.utils.data import DataLoader
 from datetime import datetime
-import common.mnist as mnist
+import common.torch_nn as tch_nn
 
 
 class Net(torch.nn.Module):
@@ -20,43 +19,6 @@ class Net(torch.nn.Module):
         return self.layers(x)
 
 
-class MNIST(Dataset):
-    def __init__(self, train=True):
-        self.train = train
-        x_train, y_train, x_test, y_test = mnist.load(onehot=False)
-
-        self.x_train = torch.from_numpy(x_train).float().to(device)
-        self.y_train = torch.from_numpy(y_train).long().to(device)
-        self.x_test = torch.from_numpy(x_test).float().to(device)
-        self.y_test = torch.from_numpy(y_test).long().to(device)
-
-        self.len = self.x_train.size(0) if train else self.x_test.size(0)
-
-    def __getitem__(self, index):
-        if self.train:
-            return self.x_train[index], self.y_train[index]
-        else:
-            return self.x_test[index], self.y_test[index]
-
-    def __len__(self):
-        return self.len
-
-
-class Evaluator:
-    def __init__(self, model, criterion):
-        self.model = model
-        self.criterion = criterion
-
-    def __call__(self, data, target):
-        with torch.no_grad():
-            output = self.model(data)
-            loss = self.criterion(output, target).item()
-            acc = torch.eq(F.softmax(output, 1).argmax(1),
-                           target).float().mean().item()
-
-        return loss, acc
-
-
 if __name__ == "__main__":
 
     use_gpu = 1
@@ -67,10 +29,10 @@ if __name__ == "__main__":
     shuffle, verbose = True, True
 
     # Load data:
-    train_loader = DataLoader(MNIST(train=True), batch_size=batch_size,
-                              shuffle=shuffle)
-    test_loader = DataLoader(MNIST(train=False), batch_size=batch_size,
-                             shuffle=False)
+    train_loader = DataLoader(tch_nn.MNIST(train=True),
+                              batch_size=batch_size, shuffle=shuffle)
+    test_loader = DataLoader(tch_nn.MNIST(train=False),
+                             batch_size=batch_size, shuffle=False)
 
     # Setup a model:
     torch.manual_seed(0)
@@ -78,7 +40,7 @@ if __name__ == "__main__":
     model = Net().to(device)
     criterion = torch.nn.CrossEntropyLoss()
     optimizer = torch.optim.SGD(model.parameters(), lr=lr)
-    score = Evaluator(model, criterion)
+    score = tch_nn.Accuracy(model, criterion)
 
     # Train the model:
     message = "Epoch[{:3d}] ({:3d}%) > Loss {:.3f} / Acc. {:.3f}"
