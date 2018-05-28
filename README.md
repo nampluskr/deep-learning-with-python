@@ -77,6 +77,16 @@ Python codes to the same deep learning model in numpy, pytorch, tensorflow, kera
 - Epochs: 10 (batch_size: 64, shuffle)
 
 
+## [4. Autoencoder of MNIST using neural networks](https://github.com/nampluskr/deep-learning-with-python/tree/master/04_mnist_autoencoder)
+
+- Model: **Encoder - Decoder - Mean squared error**
+  - Encoder: Linear(784, 50) - Relu
+  - Decoder: Linear(50, 10) - Sigmoid
+- Optimizer: Adam method
+- Learning rate: 0.0001
+- Epochs: 10 (batch_size: 64, shuffle)
+
+
 # Tips
 
 ## How to load MNIST datasets
