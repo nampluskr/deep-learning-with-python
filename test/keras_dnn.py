@@ -2,17 +2,28 @@ import sys, os
 sys.path.append(os.pardir)
 
 import keras
-from keras.models import Sequential
-from keras.layers import Dense
-from keras import optimizers
+from keras import models, layers, optimizers
 import common.mnist as mnist
 
 
-class NeuralNet(Sequential):
+class DNN_Seq(models.Sequential):
     def __init__(self):
         super().__init__()
-        self.add(Dense(200, activation='relu', input_shape=(784,)))
-        self.add(Dense(10, activation='softmax'))
+        self.add(layers.Dense(200, activation='relu', input_shape=(784,)))
+        self.add(layers.Dense(200, activation='relu'))
+        self.add(layers.Dense(10, activation='softmax'))
+        self.compile(loss='categorical_crossentropy',
+              optimizer=optimizers.adam(lr=lr),
+              metrics=['accuracy'])
+
+
+class DNN_Model(models.Model):
+    def __init__(self):
+        x = layers.Input(shape=(784,))
+        y = layers.Dense(200, activation='relu')(x)
+        y = layers.Dense(200, activation='relu')(y)
+        y = layers.Dense(10, activation='softmax')(y)
+        super().__init__(x, y)
         self.compile(loss='categorical_crossentropy',
               optimizer=optimizers.adam(lr=lr),
               metrics=['accuracy'])
@@ -26,14 +37,16 @@ if __name__ == "__main__":
     session = keras.backend.tf.Session(config=config)
 
     # Set hyper-parameters:
-    n_epoch, batch_size, lr = 10, 64, 0.001
+    n_epoch, batch_size, lr = 1, 64, 0.001
     verbose = True
 
     # Load data:
     x_train, y_train, x_test, y_test = mnist.load()
 
     # Setup a model:
-    model = NeuralNet()
+#    model = DNN_Model()
+    model = DNN_Seq()
+    model.summary()
 
     # Train the model
     history = model.fit(x_train, y_train,

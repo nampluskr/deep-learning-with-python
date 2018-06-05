@@ -28,24 +28,8 @@ class Decoder(torch.nn.Module):
                 torch.nn.Sigmoid())
 
     def forward(self, x):
-        return self.layer.view(x.size(0), 1, 28, 28)
-
-
-class Autoencoder(torch.nn.Module):
-    def __init__(self):
-        super(Autoencoder,self).__init__()
-        self.encoder = torch.nn.Sequential(
-                torch.nn.Linear(28*28, 50),
-                torch.nn.ReLU())
-        self.decoder = torch.nn.Sequential(
-                torch.nn.Linear(50, 28*28),
-                torch.nn.Sigmoid())
-
-    def forward(self, x):
-        x = x.view(x.size(0), -1)
-        encoded = self.encoder(x)
-        decoded = self.decoder(encoded)
-        return decoded.view(x.size(0), 1, 28, 28)
+        y = self.layer(x)
+        return y.view(-1, 1, 28, 28)
 
 
 if __name__ == "__main__":
@@ -64,9 +48,11 @@ if __name__ == "__main__":
     # Setup a model:
     torch.manual_seed(0)
 
-    model = Autoencoder().to(device)
+    encoder = Encoder().to(device)
+    decoder = Decoder().to(device)
+    parameters = list(encoder.parameters()) + list(decoder.parameters())
     criterion = torch.nn.MSELoss()
-    optimizer = torch.optim.Adam(model.parameters(), lr=lr)
+    optimizer = torch.optim.Adam(parameters, lr=lr)
 #    score = Evaluator(model, criterion)
 
     # Train the model:
@@ -77,12 +63,14 @@ if __name__ == "__main__":
         if verbose:
             print('')
 
-        model.train()
+        encoder.train()
+        decoder.train()
         loss_train, n_batch = 0, len(train_loader)
         for i, (data, _) in enumerate(train_loader):
             data = data.to(device)
 
-            output = model(data)
+            output = encoder(data)
+            output = decoder(output)
             loss = criterion(output, data)
             optimizer.zero_grad()
             loss.backward()
